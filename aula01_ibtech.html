@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IbTech — Lógica, Condicionais e Loops em C</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="aula01_ibtech.css">
+</head>
+<body>
+
+<!-- S1: CAPA -->
+<div class="slide active cs" id="s1">
+<div class="tag">IbTech — Encontro 01</div>
+<h1>Lógica, Condicionais<br>e <span>Loops em C</span></h1>
+<p class="sub">Do zero ao primeiro programa que toma decisões e repete ações</p>
+<p style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:15px;margin-top:16px">Linguagem: C</p>
+<div class="lf">IbTech — Liga de Tecnologia | Ibmec BH</div><div class="sn">01</div>
+</div>
+
+<!-- S2: AGENDA -->
+<div class="slide" id="s2">
+<div class="tag">Agenda</div>
+<h2>O que vamos ver <span>hoje</span></h2>
+<div class="g3">
+<div class="card ca"><h3>Bloco 1</h3><p>Lógica computacional, anatomia de um programa C, variáveis, printf e scanf</p></div>
+<div class="card ca"><h3>Bloco 2</h3><p>Estruturas condicionais: if, else, else if e operadores de comparação</p></div>
+<div class="card ca"><h3>Bloco 3</h3><p>Loops: while e for. Exercício prático integrando tudo</p></div>
+</div>
+<div class="sn">02</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S3: 1 e 0 -->
+<div class="slide" id="s3">
+<div class="tag">Bloco 1 — Lógica</div>
+<h2>O computador só entende <span>duas coisas</span></h2>
+<div class="g2">
+<div class="card" style="text-align:center"><div class="bn" style="color:var(--green)">1</div><h3 style="color:var(--green)">Verdadeiro</h3><p>Ligado / Sim / Sinal alto</p></div>
+<div class="card" style="text-align:center"><div class="bn" style="color:var(--red)">0</div><h3 style="color:var(--red)">Falso</h3><p>Desligado / Não / Sinal baixo</p></div>
+</div>
+<div class="hb"><p>Em C: <strong>0 é falso</strong>, <strong>qualquer outro valor é verdadeiro</strong>. Não existe tipo booleano nativo.</p></div>
+<div class="sn">03</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S4: OPERADORES -->
+<div class="slide" id="s4">
+<div class="tag">Bloco 1 — Operadores</div>
+<h2>Operadores lógicos em <span>C</span></h2>
+<div class="g3">
+<div class="card ca"><h3>E (&&)</h3><p>As duas precisam ser verdadeiras</p>
+<div class="cb" style="font-size:14px"><span class="kw">if</span> (a <span class="kw">&&</span> b)</div></div>
+<div class="card ca"><h3>OU (||)</h3><p>Pelo menos uma verdadeira</p>
+<div class="cb" style="font-size:14px"><span class="kw">if</span> (a <span class="kw">||</span> b)</div></div>
+<div class="card ca"><h3>NÃO (!)</h3><p>Inverte o valor</p>
+<div class="cb" style="font-size:14px"><span class="kw">if</span> (<span class="kw">!</span>a)</div></div>
+</div>
+<div class="g2" style="margin-top:20px">
+<div>
+<h3>Comparação</h3>
+<table class="tt"><tr><th>Operação</th><th>C</th></tr>
+<tr><td>Igual</td><td style="color:var(--accent);font-weight:700">==</td></tr>
+<tr><td>Diferente</td><td style="color:var(--accent);font-weight:700">!=</td></tr>
+<tr><td>Maior / Menor</td><td style="color:var(--accent);font-weight:700">> &lt;</td></tr>
+<tr><td>Maior ou igual</td><td style="color:var(--accent);font-weight:700">>= &lt;=</td></tr></table>
+</div>
+<div class="wb"><p>Cuidado: <strong>=</strong> é atribuição (guardar valor). <strong>==</strong> é comparação. Confundir os dois é o erro #1 em C.</p></div>
+</div>
+<div class="sn">04</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S5: AMBIENTE -->
+<div class="slide" id="s5">
+<div class="tag">Bloco 1 — Ambiente</div>
+<h2>O que <span>instalar</span></h2>
+<div class="g3">
+<div class="card ca"><h3>1. VS Code</h3><p>Editor de código</p>
+<div class="cb" style="font-size:13px"><span class="cm">Windows: Microsoft Store</span><br><span class="cm">Mac: brew install --cask visual-studio-code</span></div></div>
+<div class="card ca"><h3>2. Extensões</h3><p>Dentro do VS Code, instalar:</p>
+<div class="cb" style="font-size:13px"><span class="str">C/C++</span> <span class="cm">(Microsoft)</span><br><span class="str">Code Runner</span> <span class="cm">(Jun Han)</span></div></div>
+<div class="card ca"><h3>3. GCC</h3><p>Compilador (por baixo)</p>
+<div class="cb" style="font-size:13px"><span class="cm">Windows: MinGW</span><br><span class="cm">Mac: xcode-select --install</span><br><span class="cm">Linux: sudo apt install gcc</span></div></div>
+</div>
+<div class="fc" style="margin-top:24px">
+<div class="fb">📝 Escreve o .c</div><div class="fa">→</div>
+<div class="fb">▶ Clica Play (Code Runner)</div><div class="fa">→</div>
+<div class="fb">📤 Resultado no terminal</div>
+</div>
+<div class="hb"><p>O Code Runner compila e roda com um clique. Por baixo, ele executa o gcc pra vocês.</p></div>
+<div class="sn">05</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S6: ANATOMIA -->
+<div class="slide" id="s6">
+<div class="tag">Bloco 1 — Anatomia</div>
+<h2>Anatomia de um programa em <span>C</span></h2>
+<div class="g2">
+<div class="cb" style="font-size:16px">
+<span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span><br><br>
+<span class="type">int</span> <span class="fn">main</span>() {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Hello World!\n"</span>);<br>
+&nbsp;&nbsp;<span class="kw">return</span> <span class="num">0</span>;<br>
+}</div>
+<div class="al">
+<div class="al-r"><span class="lb">#include &lt;stdio.h&gt;</span><span class="ds">Importa a biblioteca de entrada/saída</span></div>
+<div class="al-r"><span class="lb">int main()</span><span class="ds">Função principal. Tudo começa aqui</span></div>
+<div class="al-r"><span class="lb">{ }</span><span class="ds">Chaves delimitam o bloco</span></div>
+<div class="al-r"><span class="lb">printf("...")</span><span class="ds">Exibe texto na tela</span></div>
+<div class="al-r"><span class="lb">\n</span><span class="ds">Quebra de linha</span></div>
+<div class="al-r"><span class="lb">;</span><span class="ds">Toda instrução termina com ;</span></div>
+<div class="al-r"><span class="lb">return 0;</span><span class="ds">"Programa terminou sem erros"</span></div>
+</div>
+</div>
+<div class="sn">06</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S7: VARIÁVEIS -->
+<div class="slide" id="s7">
+<div class="tag">Bloco 1 — Variáveis</div>
+<h2><span>Variáveis</span> e tipos em C</h2>
+<div class="g2">
+<div>
+<h3>Declaração obrigatória</h3>
+<div class="cb" style="font-size:15px">
+<span class="type">int</span> idade = <span class="num">21</span>;<br>
+<span class="type">float</span> nota = <span class="num">8.5</span>;<br>
+<span class="type">char</span> letra = <span class="str">'A'</span>;<br>
+<span class="type">char</span> nome[<span class="num">50</span>] = <span class="str">"Igor"</span>;</div>
+</div>
+<div>
+<h3>Tipos principais</h3>
+<div class="card" style="margin-bottom:8px"><p><strong style="color:var(--accent)">int</strong> → Inteiros (21, -5)</p></div>
+<div class="card" style="margin-bottom:8px"><p><strong style="color:var(--accent)">float</strong> → Decimais (3.14)</p></div>
+<div class="card" style="margin-bottom:8px"><p><strong style="color:var(--accent)">char</strong> → Um caractere ('A')</p></div>
+<div class="card"><p><strong style="color:var(--accent)">char[]</strong> → Texto ("Igor")</p></div>
+</div>
+</div>
+<div class="sn">07</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S8: PRINTF E SCANF -->
+<div class="slide" id="s8">
+<div class="tag">Bloco 1 — Entrada e Saída</div>
+<h2><span>printf</span> e <span>scanf</span></h2>
+<div class="g2">
+<div>
+<h3>Saída (printf)</h3>
+<div class="cb" style="font-size:14px">
+<span class="fn">printf</span>(<span class="str">"Nome: %s\n"</span>, nome);<br>
+<span class="fn">printf</span>(<span class="str">"Idade: %d\n"</span>, idade);<br>
+<span class="fn">printf</span>(<span class="str">"Nota: %.1f\n"</span>, nota);</div>
+<h3 style="margin-top:16px">Formatadores</h3>
+<table class="tt" style="font-size:14px"><tr><th>Formato</th><th>Tipo</th></tr>
+<tr><td style="color:var(--accent);font-weight:700">%d</td><td>int</td></tr>
+<tr><td style="color:var(--accent);font-weight:700">%f / %.1f</td><td>float</td></tr>
+<tr><td style="color:var(--accent);font-weight:700">%c</td><td>char</td></tr>
+<tr><td style="color:var(--accent);font-weight:700">%s</td><td>string</td></tr></table>
+</div>
+<div>
+<h3>Entrada (scanf)</h3>
+<div class="cb" style="font-size:14px">
+<span class="fn">printf</span>(<span class="str">"Seu nome: "</span>);<br>
+<span class="fn">scanf</span>(<span class="str">"%s"</span>, nome);<br><br>
+<span class="fn">printf</span>(<span class="str">"Sua idade: "</span>);<br>
+<span class="fn">scanf</span>(<span class="str">"%d"</span>, <span class="kw">&</span>idade);</div>
+<div class="wb" style="margin-top:16px"><p><strong>&</strong> obrigatório pra int, float, char. Strings (char[]): sem &. Esquecer = crash.</p></div>
+</div>
+</div>
+<div class="sn">08</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S9: TRANSIÇÃO BLOCO 2 -->
+<div class="slide cs" id="s9">
+<div class="tag">Bloco 2</div>
+<h1>Estruturas<br><span>Condicionais</span></h1>
+<p class="sub">Ensinando o computador a tomar decisões</p>
+<div class="sn">09</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S10: IF/ELSE -->
+<div class="slide" id="s10">
+<div class="tag">Bloco 2 — if / else</div>
+<h2><span>if</span> e <span>else</span>: a decisão básica</h2>
+<div class="g2">
+<div>
+<div class="cb" style="font-size:15px">
+<span class="type">int</span> idade;<br>
+<span class="fn">printf</span>(<span class="str">"Sua idade: "</span>);<br>
+<span class="fn">scanf</span>(<span class="str">"%d"</span>, <span class="kw">&</span>idade);<br><br>
+<span class="kw">if</span> (idade >= <span class="num">18</span>) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Maior de idade\n"</span>);<br>
+} <span class="kw">else</span> {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Menor de idade\n"</span>);<br>
+}</div>
+</div>
+<div>
+<h3>Como funciona</h3>
+<p>O programa avalia a condição dentro dos parênteses.</p>
+<p style="margin-top:10px">Se for <strong style="color:var(--green)">verdadeira</strong> (diferente de 0): executa o bloco do if.</p>
+<p style="margin-top:10px">Se for <strong style="color:var(--red)">falsa</strong> (igual a 0): executa o bloco do else.</p>
+<div class="hb" style="margin-top:16px"><p>Condição entre <strong>()</strong>. Bloco entre <strong>{}</strong>. Instrução termina com <strong>;</strong></p></div>
+</div>
+</div>
+<div class="sn">10</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S11: ELSE IF -->
+<div class="slide" id="s11">
+<div class="tag">Bloco 2 — else if</div>
+<h2>Mais de duas opções: <span>else if</span></h2>
+<div class="g2">
+<div>
+<div class="cb" style="font-size:14px">
+<span class="type">float</span> nota;<br>
+<span class="fn">printf</span>(<span class="str">"Nota: "</span>);<br>
+<span class="fn">scanf</span>(<span class="str">"%f"</span>, <span class="kw">&</span>nota);<br><br>
+<span class="kw">if</span> (nota >= <span class="num">9.0</span>) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"A\n"</span>);<br>
+} <span class="kw">else if</span> (nota >= <span class="num">7.0</span>) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"B\n"</span>);<br>
+} <span class="kw">else if</span> (nota >= <span class="num">5.0</span>) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"C\n"</span>);<br>
+} <span class="kw">else</span> {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Reprovado\n"</span>);<br>
+}</div>
+</div>
+<div>
+<h3>Fluxo</h3>
+<p>O programa testa de cima pra baixo. No primeiro que for verdadeiro, entra e ignora o resto.</p>
+<p style="margin-top:12px">Se nota = 8.0:</p>
+<ul>
+<li>nota >= 9.0? Não. Pula.</li>
+<li>nota >= 7.0? Sim! Imprime "B".</li>
+<li>Não testa mais nada.</li>
+</ul>
+<div class="hb" style="margin-top:12px"><p>O <strong>else</strong> final é o "senão genérico": pega tudo que não entrou em nenhuma condição.</p></div>
+</div>
+</div>
+<div class="sn">11</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S12: OPERADORES LÓGICOS NO IF -->
+<div class="slide" id="s12">
+<div class="tag">Bloco 2 — Combinando condições</div>
+<h2>Usando <span>&&</span> e <span>||</span> no if</h2>
+<div class="g2">
+<div>
+<h3>Exemplo com E</h3>
+<div class="cb" style="font-size:14px">
+<span class="kw">if</span> (idade >= <span class="num">18</span> <span class="kw">&&</span> tem_carteira) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Pode dirigir\n"</span>);<br>
+}</div>
+<p style="margin-top:12px">As duas condições precisam ser verdadeiras.</p>
+</div>
+<div>
+<h3>Exemplo com OU</h3>
+<div class="cb" style="font-size:14px">
+<span class="kw">if</span> (dia == <span class="num">6</span> <span class="kw">||</span> dia == <span class="num">7</span>) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Final de semana!\n"</span>);<br>
+}</div>
+<p style="margin-top:12px">Basta uma ser verdadeira.</p>
+</div>
+</div>
+<div class="hb" style="margin-top:20px"><p>Podem ser combinados: <strong style="color:var(--accent)">if (a > 0 && (b == 1 || c == 1))</strong> — use parênteses pra controlar a ordem.</p></div>
+<div class="sn">12</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S13: EXERCÍCIO CONDICIONAIS -->
+<div class="slide" id="s13">
+<div class="tag">Bloco 2 — Exercício</div>
+<h2>Exercício: <span>Calculadora simples</span></h2>
+<div class="cb" style="font-size:13px">
+<span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span><br><br>
+<span class="type">int</span> <span class="fn">main</span>() {<br>
+&nbsp;&nbsp;<span class="type">float</span> a, b;<br>
+&nbsp;&nbsp;<span class="type">char</span> op;<br><br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Primeiro numero: "</span>); <span class="fn">scanf</span>(<span class="str">"%f"</span>, <span class="kw">&</span>a);<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Operacao (+, -, *, /): "</span>); <span class="fn">scanf</span>(<span class="str">" %c"</span>, <span class="kw">&</span>op);<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Segundo numero: "</span>); <span class="fn">scanf</span>(<span class="str">"%f"</span>, <span class="kw">&</span>b);<br><br>
+&nbsp;&nbsp;<span class="kw">if</span> (op == <span class="str">'+'</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Resultado: %.2f\n"</span>, a + b);<br>
+&nbsp;&nbsp;} <span class="kw">else if</span> (op == <span class="str">'-'</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Resultado: %.2f\n"</span>, a - b);<br>
+&nbsp;&nbsp;} <span class="kw">else if</span> (op == <span class="str">'*'</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Resultado: %.2f\n"</span>, a * b);<br>
+&nbsp;&nbsp;} <span class="kw">else if</span> (op == <span class="str">'/'</span> <span class="kw">&&</span> b != <span class="num">0</span>) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Resultado: %.2f\n"</span>, a / b);<br>
+&nbsp;&nbsp;} <span class="kw">else</span> {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Operacao invalida\n"</span>);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="kw">return</span> <span class="num">0</span>;<br>
+}</div>
+<div class="sn">13</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S14: TRANSIÇÃO BLOCO 3 -->
+<div class="slide cs" id="s14">
+<div class="tag">Bloco 3</div>
+<h1>Estruturas de<br><span>Repetição</span></h1>
+<p class="sub">Fazendo o computador repetir tarefas sem reclamar</p>
+<div class="sn">14</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S15: WHILE -->
+<div class="slide" id="s15">
+<div class="tag">Bloco 3 — while</div>
+<h2><span>while</span>: enquanto for verdadeiro, repete</h2>
+<div class="g2">
+<div>
+<div class="cb" style="font-size:15px">
+<span class="type">int</span> contador = <span class="num">1</span>;<br><br>
+<span class="kw">while</span> (contador <= <span class="num">5</span>) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Contando: %d\n"</span>, contador);<br>
+&nbsp;&nbsp;contador = contador + <span class="num">1</span>;<br>
+}</div>
+<div class="cb" style="font-size:13px;margin-top:12px">
+<span class="cm">Saída:</span><br>
+Contando: 1<br>
+Contando: 2<br>
+Contando: 3<br>
+Contando: 4<br>
+Contando: 5</div>
+</div>
+<div>
+<h3>Como funciona</h3>
+<p>1. Testa a condição</p>
+<p>2. Se verdadeira: executa o bloco</p>
+<p>3. Volta pro teste</p>
+<p>4. Repete até ser falsa</p>
+<div class="wb" style="margin-top:16px"><p>Se a variável de controle nunca mudar, o loop roda pra sempre (<strong>loop infinito</strong>). Sempre altere a variável dentro do bloco!</p></div>
+<div class="hb" style="margin-top:12px"><p><strong>contador = contador + 1</strong> pode ser escrito como <strong>contador++</strong> (atalho do C).</p></div>
+</div>
+</div>
+<div class="sn">15</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S16: FOR -->
+<div class="slide" id="s16">
+<div class="tag">Bloco 3 — for</div>
+<h2><span>for</span>: quando você sabe quantas vezes</h2>
+<div class="g2">
+<div>
+<div class="cb" style="font-size:15px">
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Contando: %d\n"</span>, i);<br>
+}</div>
+<p style="margin-top:16px">Mesmo resultado do while anterior, mas em 3 linhas.</p>
+</div>
+<div>
+<h3>As 3 partes do for</h3>
+<div class="card" style="margin-bottom:8px"><p><strong style="color:var(--accent)">int i = 1</strong> → Inicialização (começa em 1)</p></div>
+<div class="card" style="margin-bottom:8px"><p><strong style="color:var(--accent)">i <= 5</strong> → Condição (enquanto for verdadeira)</p></div>
+<div class="card"><p><strong style="color:var(--accent)">i++</strong> → Incremento (soma 1 a cada volta)</p></div>
+<div class="hb" style="margin-top:12px"><p><strong>i++</strong> é o mesmo que <strong>i = i + 1</strong>. O <strong>++</strong> é atalho do C.</p></div>
+</div>
+</div>
+<div class="sn">16</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S17: WHILE VS FOR -->
+<div class="slide" id="s17">
+<div class="tag">Bloco 3 — Quando usar qual</div>
+<h2><span>while</span> vs <span>for</span></h2>
+<div class="g2">
+<div class="card ca">
+<h3>while</h3>
+<p>Quando você NÃO sabe quantas vezes vai repetir.</p>
+<div class="cb" style="font-size:13px;margin-top:10px">
+<span class="cm">// Pedir senha até acertar</span><br>
+<span class="kw">while</span> (senha != <span class="num">1234</span>) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Senha: "</span>);<br>
+&nbsp;&nbsp;<span class="fn">scanf</span>(<span class="str">"%d"</span>, <span class="kw">&</span>senha);<br>
+}</div>
+</div>
+<div class="card ca">
+<h3>for</h3>
+<p>Quando você SABE quantas vezes vai repetir.</p>
+<div class="cb" style="font-size:13px;margin-top:10px">
+<span class="cm">// Tabuada do 5</span><br>
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">1</span>; i <= <span class="num">10</span>; i++) {<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"5 x %d = %d\n"</span>, i, <span class="num">5</span> * i);<br>
+}</div>
+</div>
+</div>
+<div class="sn">17</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S18: EXERCÍCIO FINAL -->
+<div class="slide" id="s18">
+<div class="tag">Bloco 3 — Exercício final</div>
+<h2>Exercício: <span>Adivinhe o número</span></h2>
+<div class="g2">
+<div>
+<div class="cb" style="font-size:13px">
+<span class="pp">#include</span> <span class="str">&lt;stdio.h&gt;</span><br><br>
+<span class="type">int</span> <span class="fn">main</span>() {<br>
+&nbsp;&nbsp;<span class="type">int</span> secreto = <span class="num">42</span>;<br>
+&nbsp;&nbsp;<span class="type">int</span> chute = <span class="num">0</span>;<br>
+&nbsp;&nbsp;<span class="type">int</span> tentativas = <span class="num">0</span>;<br><br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Adivinhe o numero (1-100)!\n"</span>);<br><br>
+&nbsp;&nbsp;<span class="kw">while</span> (chute != secreto) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Seu chute: "</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">scanf</span>(<span class="str">"%d"</span>, <span class="kw">&</span>chute);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tentativas++;<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (chute > secreto) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Menor!\n"</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} <span class="kw">else if</span> (chute < secreto) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Maior!\n"</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="fn">printf</span>(<span class="str">"Acertou em %d tentativas!\n"</span>, tentativas);<br>
+&nbsp;&nbsp;<span class="kw">return</span> <span class="num">0</span>;<br>
+}</div>
+</div>
+<div>
+<h3>O que esse programa usa</h3>
+<ul>
+<li>Variáveis (int)</li>
+<li>printf e scanf</li>
+<li>while (loop até acertar)</li>
+<li>if / else if (dica maior/menor)</li>
+<li>++ (incremento)</li>
+</ul>
+<div class="hb" style="margin-top:16px"><p>Integra <strong>tudo</strong> que vocês aprenderam hoje numa coisa só.</p></div>
+<div class="card" style="margin-top:12px"><h3>Desafio extra</h3><p>Limitar pra 10 tentativas. Se acabar, mostra "Você perdeu! O número era X".</p></div>
+</div>
+</div>
+<div class="sn">18</div><div class="lf">IbTech — Ibmec BH</div>
+</div>
+
+<!-- S19: ENCERRAMENTO -->
+<div class="slide cs" id="s19">
+<div class="tag">Encerramento</div>
+<h1>Próximo <span>encontro</span></h1>
+<p class="sub">HTML e CSS: construindo interfaces e o modelo de containers</p>
+<div class="card" style="margin-top:32px;max-width:600px">
+<h3>Tarefa pra casa</h3>
+<p>Instalar VS Code + GCC. Compilar e rodar o jogo "Adivinhe o número". Tentar o desafio extra (limite de 10 tentativas).</p>
+</div>
+<div class="sn">19</div><div class="lf">IbTech — Liga de Tecnologia | Ibmec BH</div>
+</div>
+
+<div class="nh">← → ou clique pra navegar</div>
+<script>
+let c=0;const s=document.querySelectorAll('.slide'),t=s.length;
+function sh(n){s[c].classList.remove('active');c=(n+t)%t;s[c].classList.add('active');s[c].classList.add('fi');setTimeout(()=>s[c].classList.remove('fi'),400)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')sh(c+1);if(e.key==='ArrowLeft')sh(c-1)});
+document.addEventListener('click',e=>{e.clientX>window.innerWidth/2?sh(c+1):sh(c-1)});
+</script>
+</body>
+</html>
